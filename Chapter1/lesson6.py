@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# lesson 1.6: Inhertance of classes
+# lesson 1.6: Inheritance of classes
 
-# Syntax of inhertance
+# Syntax of inheritance
 
 '''
 class D: pass
