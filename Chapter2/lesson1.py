@@ -134,13 +134,15 @@ for i in get_unuseful_except(array, exc):
 '''
 
 # Instance raise structure.
-'''
+
+class BadName(Exception): pass
+
 def greet(name):
 	if name[0].isupper():
 		return "Hello, " + name
 	else:
 		raise ValueError(name + "ia inapproriate name")
 
-print(greet("Anton"))
-print(greet("anton"))
-'''
+__all__ = ["BadName", "greet"]
+
+print("Import is execution")
