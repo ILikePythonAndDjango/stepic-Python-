@@ -95,18 +95,16 @@ print("Yes" if found else "No")
 Следующая задача:
 На вход подаются тег ссылки. И нужно вывести все сайты.
 '''
-import re
-lst_inp=[]
-lst_out=[]
-for i in range(7):
-	lst_inp.append(input())
-pattern = r"<a.*href=\"(.+)\".*>"
-print(lst_inp)
-for i in lst_inp:
-	reference = re.findall(pattern, i)
-	if reference:
-		lst_out.append(reference)
-print(lst_out)
-pattern = r"^[^./](?: http|https|ftp)??(?: ://)??((?: www)??(.+[.]+?(?: ru|com|org)))+?(?: /|:)??.*"
-for i in lst_out:
-	print(re.findall(pattern, i[0])[0])
+import re, sys
+pattern_href = r'<a.+href[ ]*=[ ]*"(.+)".*>'
+pattern_domenpage = r"((.+)\.(ru|org|com|net))"
+domen_list = list()
+try:
+	for line in sys.stdin:
+		line = line.rstrip()
+		href = re.findall(pattern_href, line)
+		if href and re.findall(pattern_domenpage, href[0]):
+			domen_list.append(re.findall(pattern_domenpage, href[0])[0][0])
+except KeyboardInterrupt:
+		pass
+for domen in domen_list: print(domen)
