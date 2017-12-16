@@ -34,41 +34,15 @@ with open("module3/example.csv", "a") as f:
 	writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
 	writer.writerows(students)
 '''
-# Example 1
-'''
-import csv
-crimes = []
-with open("Crimes.csv") as f:
-	reader = csv.reader(f)
+import csv, re, collections
+primares = list()
+with open("Crimes.csv", "r") as file:
+	reader = csv.DictReader(file)
 	for row in reader:
-		date = row[2]
-		if date[6:10] == "2015":
-			crimes.append(row)
-primares = []
-for row in crimes:
-	primares.append(row[6])
-count_primares = dict((x, primares.count(x)) for x in set(primares) if primares.count(x) > 1)
-keys_list = list()
-for i in count_primares.keys():
-	keys_list.append(i)
-minimal = count_primares[keys_list[0]]
-for key in count_primares.keys():
-	if count_primares[key] > minimal:
-		minimal = count_primares[key]
-		name = key
-print(name, minimal)
-'''
-# Example 2
-'''
-import csv
-from collections import Counter
-primares = []
-with open("Crimes.csv") as f:
-		for row in csv.reader(f):
-			if row[2][6:10] == "2015":
-				primares.append(row[6])
-print(Counter(primares).most_common()[0][0])
-'''
+		row = dict(row)
+		if "2015" in re.findall(r"\d\d/\d\d/(\d\d\d\d) \d\d:\d\d:\d\d", row["Date"]):
+			primares.append(row["Primary Type"])
+print(collections.Counter(primares).most_common()[0])
 '''
 import json
 student1 = {
@@ -126,6 +100,7 @@ with open(file_name, "r", newline="") as file:
 	for row in reader:
 		print(row["name"], "-", row['age'])
 '''
+'''
 import json
 classes = json.loads(input())
 classes_dict = dict()
@@ -152,3 +127,4 @@ print(output.keys())
 print(list(output.keys()).sort())
 for i in list(output.keys()).sort():
 	print(i, ":", output[i])
+'''
