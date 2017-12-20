@@ -34,6 +34,7 @@ with open("module3/example.csv", "a") as f:
 	writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
 	writer.writerows(students)
 '''
+'''
 import csv, re, collections
 primares = list()
 with open("Crimes.csv", "r") as file:
@@ -43,6 +44,7 @@ with open("Crimes.csv", "r") as file:
 		if "2015" in re.findall(r"\d\d/\d\d/(\d\d\d\d) \d\d:\d\d:\d\d", row["Date"]):
 			primares.append(row["Primary Type"])
 print(collections.Counter(primares).most_common()[0])
+'''
 '''
 import json
 student1 = {
@@ -100,6 +102,7 @@ with open(file_name, "r", newline="") as file:
 	for row in reader:
 		print(row["name"], "-", row['age'])
 '''
+# Example 1
 '''
 import json
 classes = json.loads(input())
@@ -128,3 +131,28 @@ print(list(output.keys()).sort())
 for i in list(output.keys()).sort():
 	print(i, ":", output[i])
 '''
+# Example 2
+import json
+classes_list = json.loads(input())
+classes = {}
+for i in classes_list:
+	classes[i["name"]] = i["parents"]
+def is_instance(parent, children):
+	if (parent in classes[children]) or (parent == children):
+		return True
+	else:
+		for i in classes[children]:
+			if i == set(): 
+				return False
+			else:
+				if is_instance(parent, i):
+					return True
+classes_list = []
+for cl in classes.keys():
+	classes_list.append(cl)
+classes_list.sort()
+for instance in classes_list:
+	count = 0
+	for i in classes_list:
+		if is_instance(instance, i): count += 1
+	print("{} : {}".format(instance, str(count)))
