@@ -79,35 +79,17 @@ xml_data = input()
 
 root = ElementTree.fromstring(xml_data)
 
-price_red = 0
-price_green = 0
-price_blue = 0
-price = 1
+def getpricecolor(root, color, price = 0):
+	pass
 
-def numeric_attrib(root):
-	global price_red
-	global price_green
-	global price_blue
-	global price
-	isNone = True
-	chilrens = root.getchildren()
-	color = root.attrib["color"]
-	for i in chilrens: print(i.attrib, end=" ")
-	if color == "red":
-		price_red += price
-	elif color == "green":
-		price_green += price
-	elif color == "blue":
-		price_blue += price
-	if not len(chilrens) == 0:
-		for element in chilrens:
-			if not len(element.getchildren()) == 0:
-				isNone = False
-				break
-		if not isNone:
-			for element in chilrens:
-				numeric_attrib(element)
-		price += 1
+def printelements(root, tab="\t", counttab=0):
+	string = "{}{} {}".format(tab*counttab, root.tag, root.attrib["color"])
+	print(string)
+	for element in root:
+		try:
+			printelements(element, counttab=counttab+1)
+		except TypeError:
+			pass
 
-numeric_attrib(root)
-print(price_red, price_green, price_blue)
+for out in printelements(root):
+	print(out)
